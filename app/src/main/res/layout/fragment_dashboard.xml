@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.dashboard.DashboardFragment"
+    >
+    <data>
+        <variable name = "viewmodel" type = "com.ifcompany.smart_house_01.ui.dashboard.DashboardViewModel"/>
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/fragment_appoint_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Spinner
+                android:id="@+id/appoint_device_spinner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                app:layout_constraintVertical_bias="0.05"
+                app:layout_constraintHorizontal_bias="0.5"
+
+                app:layout_constraintHeight_percent=".07"
+                app:layout_constraintWidth_percent="0.8"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/appoint_device_auto"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@{viewmodel.deviceAuto == 0?`수동`: viewmodel.deviceAuto == 1? `자동`: `연결안됨`}"
+                android:gravity="center"
+
+                app:layout_constraintVertical_bias="0.13"
+                app:layout_constraintHorizontal_bias="0.5"
+
+                app:layout_constraintHeight_percent=".04"
+                app:layout_constraintWidth_percent="0.8"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <!--        <androidx.recyclerview.widget.RecyclerView-->
+            <!--            android:id="@+id/appoint_recyclerview"-->
+            <!--            android:layout_width="0dp"-->
+            <!--            android:layout_height="0dp"-->
+
+            <!--            app:layout_constraintVertical_bias="1"-->
+            <!--            app:layout_constraintHorizontal_bias="0.5"-->
+
+            <!--            app:layout_constraintHeight_percent=".82"-->
+            <!--            app:layout_constraintWidth_percent="0.95"-->
+
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toTopOf="parent"-->
+            <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--            />-->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                app:layout_constraintVertical_bias="0.85"
+                app:layout_constraintHorizontal_bias="0.5"
+
+                app:layout_constraintHeight_percent=".79"
+                app:layout_constraintWidth_percent="0.95"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/appoint_compump"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_back"
+
+                    app:layout_constraintVertical_bias="0.02"
+                    app:layout_constraintHorizontal_bias="0.5"
+
+                    app:layout_constraintHeight_percent=".13"
+                    app:layout_constraintWidth_percent="0.95"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="컴프펌프"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.05"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.25"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="시작시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="종료시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_compump_startt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.compump_startt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/appoint_compump_stopt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.compump_stopt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_compump_onoff"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="@{viewmodel.compump_onoff?`On`:`Off`}"
+                        android:textSize="15sp"
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.95"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.2"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/appoint_ffan"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_back"
+
+                    app:layout_constraintVertical_bias="0.21"
+                    app:layout_constraintHorizontal_bias="0.5"
+
+                    app:layout_constraintHeight_percent=".13"
+                    app:layout_constraintWidth_percent="0.95"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="유동팬"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.05"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.25"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="시작시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="종료시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_ffan_startt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.ffan_startt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/appoint_ffan_stopt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.ffan_stopt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_ffan_onoff"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="@{viewmodel.ffan_onoff?`On`:`Off`}"
+                        android:textSize="15sp"
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.95"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.2"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/appoint_efan"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_back"
+
+                    app:layout_constraintVertical_bias="0.4"
+                    app:layout_constraintHorizontal_bias="0.5"
+
+                    app:layout_constraintHeight_percent=".13"
+                    app:layout_constraintWidth_percent="0.95"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="배기팬"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.05"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.25"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="시작시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="종료시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_efan_startt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.efan_startt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/appoint_efan_stopt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.efan_stopt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_efan_onoff"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="@{viewmodel.efan_onoff?`On`:`Off`}"
+                        android:textSize="15sp"
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.95"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.2"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/appoint_aircon"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_back"
+
+                    app:layout_constraintVertical_bias="0.59"
+                    app:layout_constraintHorizontal_bias="0.5"
+
+                    app:layout_constraintHeight_percent=".13"
+                    app:layout_constraintWidth_percent="0.95"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="냉난방기"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.05"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.25"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="시작시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="종료시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_aircon_startt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.aircon_startt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/appoint_aircon_stopt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.aircon_stopt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_aircon_onoff"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="@{viewmodel.aircon_onoff?`On`:`Off`}"
+                        android:textSize="15sp"
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.95"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.2"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/appoint_co2creator"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_back"
+
+                    app:layout_constraintVertical_bias="0.78"
+                    app:layout_constraintHorizontal_bias="0.5"
+
+                    app:layout_constraintHeight_percent=".13"
+                    app:layout_constraintWidth_percent="0.95"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="컴프펌프"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.05"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.25"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="시작시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="종료시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_co2creator_startt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.co2creator_startt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/appoint_co2creator_stopt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.co2creator_stopt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_co2creator_onoff"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="@{viewmodel.co2creator_onoff?`On`:`Off`}"
+                        android:textSize="15sp"
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.95"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.2"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/appoint_led"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_back"
+
+                    app:layout_constraintVertical_bias="0.97"
+                    app:layout_constraintHorizontal_bias="0.5"
+
+                    app:layout_constraintHeight_percent=".13"
+                    app:layout_constraintWidth_percent="0.95"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="LED"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.05"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.25"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="시작시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:text="종료시간"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+
+                        app:layout_constraintVertical_bias="0.1"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_led_startt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.led_startt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.38"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/appoint_led_stopt"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:text="@{viewmodel.led_stopt}"
+                        app:layout_constraintVertical_bias="0.9"
+                        app:layout_constraintHorizontal_bias="0.68"
+
+                        app:layout_constraintHeight_percent=".4"
+                        app:layout_constraintWidth_percent="0.22"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/appoint_led_onoff"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="@{viewmodel.led_onoff?`On`:`Off`}"
+                        android:textSize="15sp"
+                        app:layout_constraintVertical_bias="0.5"
+                        app:layout_constraintHorizontal_bias="0.95"
+
+                        app:layout_constraintHeight_percent=".9"
+                        app:layout_constraintWidth_percent="0.2"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+
+
+</layout>

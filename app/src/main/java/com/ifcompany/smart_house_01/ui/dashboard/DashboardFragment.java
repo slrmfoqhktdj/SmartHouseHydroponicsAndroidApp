@@ -1,0 +1,710 @@
+package com.ifcompany.smart_house_01.ui.dashboard;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.PopupMenu;
+import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.ifcompany.smart_house_01.R;
+import com.ifcompany.smart_house_01.databinding.FragmentDashboardBinding;
+import com.ifcompany.smart_house_01.db.PreferenceManager;
+import com.ifcompany.smart_house_01.db.PreferenceModel;
+import com.ifcompany.smart_house_01.intent.KeyModel;
+import com.ifcompany.smart_house_01.retrofit.Retrofit_Factory;
+import com.ifcompany.smart_house_01.retrofit.Retrofit_Interface;
+import com.ifcompany.smart_house_01.retrofit.model.Retrofit_DeviceAppointListModel;
+import com.ifcompany.smart_house_01.retrofit.model.Retrofit_DeviceSimpleListModel;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveAirconModel;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveCo2CreatorModel;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveCompModel;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveEFanModel;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveFFanModel;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveLEDModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendAppointAirconModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendAppointCo2CreatorModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendAppointComPumpModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendAppointEFanModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendAppointFFanModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendAppointLEDModel;
+import com.ifcompany.smart_house_01.ui.DeviceStateModel;
+import com.ifcompany.smart_house_01.ui.dashboard.model.DeviceAppointModel;
+import com.ifcompany.smart_house_01.ui.dashboard.model.DeviceAppointNameModel;
+import com.ifcompany.smart_house_01.ui.home.DeviceAdapter;
+import com.ifcompany.smart_house_01.ui.home.detail.DeviceDetailActivity;
+import com.ifcompany.smart_house_01.ui.home.model.DeviceSimpleListModel;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class DashboardFragment extends Fragment {
+
+    private FragmentDashboardBinding binding;
+    private DashboardViewModel dashboardViewModel;
+    private final String tag = "DashboardFragment";
+    private PreferenceManager pm ;
+    private final Retrofit_Interface retrofitService = Retrofit_Factory.create();
+    private Spinner deviceselected;
+    private TextView devicestate;
+    private final int initDevicelistPosition = 0;
+
+
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        Log.e(tag,"OnCreate");
+
+        dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+
+        pm = PreferenceManager.getInstance(getActivity());
+
+    }
+
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+            ViewGroup container, Bundle savedInstanceState) {
+
+        Log.e(tag,"OnCreateView");
+
+//        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_dashboard, container, false);
+        binding.setViewmodel(dashboardViewModel);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+        View root = binding.getRoot();
+
+        deviceselected = binding.appointDeviceSpinner;
+        devicestate = binding.appointDeviceAuto;
+        ConstraintLayout compump_con = binding.appointCompump;
+        ConstraintLayout ffan_con = binding.appointFfan;
+        ConstraintLayout efan_con = binding.appointEfan;
+        ConstraintLayout aircon_con = binding.appointAircon;
+        ConstraintLayout co2creator_con = binding.appointCo2creator;
+        ConstraintLayout led_con = binding.appointLed;
+
+
+        TextView compump_onoff = binding.appointCompumpOnoff;
+        TextView ffan_onoff = binding.appointFfanOnoff;
+        TextView efan_onoff = binding.appointEfanOnoff;
+        TextView aircon_onoff = binding.appointAirconOnoff;
+        TextView co2creator_onoff = binding.appointCo2creatorOnoff;
+        TextView led_onoff = binding.appointLedOnoff;
+
+
+
+
+        compump_con.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            String[] startT = dashboardViewModel.getCompump_startt().getValue().split(":");
+            String[] stopT = dashboardViewModel.getCompump_stopt().getValue().split(":");
+
+            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.ComPumpName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+        });
+
+        ffan_con.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            String[] startT = dashboardViewModel.getFfan_startt().getValue().split(":");
+            String[] stopT = dashboardViewModel.getFfan_stopt().getValue().split(":");
+
+            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.FFanName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+        });
+
+        efan_con.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            String[] startT = dashboardViewModel.getEfan_startt().getValue().split(":");
+            String[] stopT = dashboardViewModel.getEfan_stopt().getValue().split(":");
+
+            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.EFanName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+        });
+
+        aircon_con.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            String[] startT = dashboardViewModel.getAircon_startt().getValue().split(":");
+            String[] stopT = dashboardViewModel.getAircon_stopt().getValue().split(":");
+
+            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.AirconName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+        });
+
+        co2creator_con.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            String[] startT = dashboardViewModel.getCo2creator_startt().getValue().split(":");
+            String[] stopT = dashboardViewModel.getCo2creator_stopt().getValue().split(":");
+
+            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.Co2CreatorName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+        });
+
+        led_con.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            String[] startT = dashboardViewModel.getLed_startt().getValue().split(":");
+            String[] stopT = dashboardViewModel.getLed_stopt().getValue().split(":");
+
+            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.LedName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+        });
+
+        compump_onoff.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            onOnoffClickFunction(DeviceAppointNameModel.ComPumpName);
+        });
+
+        ffan_onoff.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            onOnoffClickFunction(DeviceAppointNameModel.FFanName);
+        });
+
+        efan_onoff.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            onOnoffClickFunction(DeviceAppointNameModel.EFanName);
+        });
+
+        aircon_onoff.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            onOnoffClickFunction(DeviceAppointNameModel.AirconName);
+        });
+
+        co2creator_onoff.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            onOnoffClickFunction(DeviceAppointNameModel.Co2CreatorName);
+        });
+
+        led_onoff.setOnClickListener(v -> {
+
+            if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                return;
+            }
+
+            onOnoffClickFunction(DeviceAppointNameModel.LedName);
+        });
+
+
+
+
+        if(dashboardViewModel.getDeviceidList().getValue() == null){
+            ArrayList<String> devicenicklist = new ArrayList<>(pm.getDeviceList(PreferenceModel.device_list));
+            devicenicklist.replaceAll(key -> pm.getString(key, key));
+            dashboardViewModel.setDeviceidList(devicenicklist);
+        }
+
+        initSpinnerAdapter(dashboardViewModel.getDeviceidList().getValue());
+
+
+        if(dashboardViewModel.getItemlist().getValue().size()<=0){
+            Log.d(tag,"list size is "+dashboardViewModel.getItemlist().getValue().size());
+            getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null), dashboardViewModel.getDeviceid().getValue()==null? dashboardViewModel.getDeviceidList().getValue().get(initDevicelistPosition): dashboardViewModel.getDeviceid().getValue());
+//            getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null), "device01");
+        }
+
+
+//        dashboardViewModel.getDeviceAuto().observe(getActivity(), integer -> {
+//            Log.d(tag,"getAutoChange "+integer);
+//            if(integer == 1){
+//                appointAdapter.setItemDisable(true);
+//            }else{
+//                appointAdapter.setItemDisable(false);
+//            }
+//
+//        });
+
+
+        binding.fragmentAppointRefreshLayout.setOnRefreshListener(() -> {
+            Log.d(tag,"refreshlayout");
+
+            //닉 초기화
+            ArrayList<String> devicenicklist = new ArrayList<>(pm.getDeviceList(PreferenceModel.device_list));
+            devicenicklist.replaceAll(key -> pm.getString(key, key));
+            dashboardViewModel.setDeviceidList(devicenicklist);
+            
+            
+            getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null),   deviceselected.getSelectedItem().toString());
+//            getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null),  "device01");
+            binding.fragmentAppointRefreshLayout.setRefreshing(false);
+        });
+
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
+        super.onViewCreated(view,savedInstanceState);
+
+//        dashboardViewModel.getDeviceid().observe(getViewLifecycleOwner(),s -> {
+//            Log.d(tag,"get Deviceid Change = "+ s);
+//            if(s!=null){
+//                getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null), s);
+//            }
+//
+//        });
+
+        dashboardViewModel.getDeviceAuto().observe(getViewLifecycleOwner(),a ->{
+            switch (a){
+                case DeviceStateModel.pass:
+                    devicestate.setTextColor(ContextCompat.getColor(requireContext(),R.color.device_state_pass));
+                    break;
+                case DeviceStateModel.auto:
+                    devicestate.setTextColor(ContextCompat.getColor(requireContext(),R.color.device_state_auto));
+                    break;
+                default:
+                    devicestate.setTextColor(ContextCompat.getColor(requireContext(),R.color.device_state_disconnect));
+                    break;
+            }
+        });
+    }
+    private void getDeviceAppointList(String token, String device){
+        retrofitService.GetDeviceAppointList(token,device).enqueue(new Callback<Retrofit_DeviceAppointListModel>() {
+            @Override
+            public void onResponse(Call<Retrofit_DeviceAppointListModel> call, Response<Retrofit_DeviceAppointListModel> response) {
+
+                String deviceid = response.body().getId();
+                int deviceAuto = response.body().getAuto();
+
+                dashboardViewModel.setDeviceAuto(deviceAuto);
+
+
+                List<DeviceAppointModel> list = response.body().getItem();
+
+                ArrayList<DeviceAppointModel> arrayList = new ArrayList<>(list);
+
+                Log.d(tag,"getDeviceAppointList : "+ deviceid + " size : "+arrayList.size());
+
+//                if(arrayList.size()  == dashboardViewModel.getItemlist().getValue().size()){
+//                    return;
+//                }
+
+
+                if(arrayList.size() == 0){
+                    dashboardViewModel.setCompump_startt(null);
+                    dashboardViewModel.setCompump_stopt(null);
+                    dashboardViewModel.setCompump_onoff(false);
+                    dashboardViewModel.setFfan_startt(null);
+                    dashboardViewModel.setFfan_stopt(null);
+                    dashboardViewModel.setFfan_onoff(null);
+                    dashboardViewModel.setEfan_startt(null);
+                    dashboardViewModel.setEfan_stopt(null);
+                    dashboardViewModel.setEfan_onoff(null);
+                    dashboardViewModel.setAircon_startt(null);
+                    dashboardViewModel.setAircon_stopt(null);
+                    dashboardViewModel.setAircon_onoff(null);
+                    dashboardViewModel.setCo2creator_startt(null);
+                    dashboardViewModel.setCo2creator_stopt(null);
+                    dashboardViewModel.setCo2creator_onoff(null);
+                    dashboardViewModel.setLed_startt(null);
+                    dashboardViewModel.setLed_stopt(null);
+                    dashboardViewModel.setLed_onoff(null);
+                    return;
+                }
+
+
+                for(int a = 0; a< arrayList.size(); a++){
+                    DeviceAppointModel da = arrayList.get(a);
+                    switch (da.getName()) {
+                        case DeviceAppointNameModel.ComPumpName:
+                            dashboardViewModel.setCompump_startt(da.getStartt());
+                            dashboardViewModel.setCompump_stopt(da.getStopt());
+                            dashboardViewModel.setCompump_onoff(da.getOnoff());
+                            break;
+                        case DeviceAppointNameModel.FFanName:
+                            dashboardViewModel.setFfan_startt(da.getStartt());
+                            dashboardViewModel.setFfan_stopt(da.getStopt());
+                            dashboardViewModel.setFfan_onoff(da.getOnoff());
+                            break;
+                        case DeviceAppointNameModel.EFanName:
+                            dashboardViewModel.setEfan_startt(da.getStartt());
+                            dashboardViewModel.setEfan_stopt(da.getStopt());
+                            dashboardViewModel.setEfan_onoff(da.getOnoff());
+                            break;
+                        case DeviceAppointNameModel.AirconName:
+                            dashboardViewModel.setAircon_startt(da.getStartt());
+                            dashboardViewModel.setAircon_stopt(da.getStopt());
+                            dashboardViewModel.setAircon_onoff(da.getOnoff());
+                            break;
+                        case DeviceAppointNameModel.Co2CreatorName:
+                            dashboardViewModel.setCo2creator_startt(da.getStartt());
+                            dashboardViewModel.setCo2creator_stopt(da.getStopt());
+                            dashboardViewModel.setCo2creator_onoff(da.getOnoff());
+                            break;
+                        case DeviceAppointNameModel.LedName:
+                            dashboardViewModel.setLed_startt(da.getStartt());
+                            dashboardViewModel.setLed_stopt(da.getStopt());
+                            dashboardViewModel.setLed_onoff(da.getOnoff());
+                            break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Retrofit_DeviceAppointListModel> call, Throwable t) {
+                Log.d(tag, String.valueOf(t));
+            }
+        });
+    }
+
+    private void initSpinnerAdapter(ArrayList<String> a){
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,a);
+        spinnerAdapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
+        deviceselected.setAdapter(spinnerAdapter);
+
+
+        deviceselected.setSelection(initDevicelistPosition,false);
+
+        deviceselected.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(tag,"onSpinner selected position = "+position + ", id = "+dashboardViewModel.getDeviceidList().getValue().get(position));
+                String deviceid = dashboardViewModel.getDeviceidList().getValue().get(position);
+                if (deviceid == null){
+                    return;
+                }
+                if(!Objects.equals(dashboardViewModel.getDeviceid().getValue(), deviceid)){
+                    dashboardViewModel.setDeviceid(deviceid);
+
+                    getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null), deviceid);
+
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.d(tag,"onNothingSelected");
+            }
+        });
+    }
+
+
+    public void onOnoffClickFunction(String category) {
+
+        String device_id = pm.getDeviceId(deviceselected.getSelectedItem().toString());
+        String jwt_t = pm.getString(PreferenceModel.jwt_token,null);
+
+        if(jwt_t == null){
+            return;
+        }
+
+        boolean goal;
+        
+        switch (category){
+            case DeviceAppointNameModel.ComPumpName:
+                goal = Boolean.FALSE.equals(dashboardViewModel.getCompump_onoff().getValue());
+                if(SendAppointComPump(jwt_t,device_id,dashboardViewModel.getCompump_startt().getValue(),dashboardViewModel.getCompump_stopt().getValue(),goal)){
+                    dashboardViewModel.setCompump_onoff(goal);
+                }
+                break;
+            case DeviceAppointNameModel.FFanName:
+                goal = Boolean.FALSE.equals(dashboardViewModel.getFfan_onoff().getValue());
+                if(SendAppointFFan(jwt_t,device_id,dashboardViewModel.getFfan_startt().getValue(),dashboardViewModel.getFfan_stopt().getValue(), goal)){
+                    dashboardViewModel.setFfan_onoff(goal);
+                }
+                break;
+            case DeviceAppointNameModel.EFanName:
+                goal = Boolean.FALSE.equals(dashboardViewModel.getEfan_onoff().getValue());
+                if(SendAppointEFan(jwt_t,device_id,dashboardViewModel.getEfan_startt().getValue(),dashboardViewModel.getEfan_stopt().getValue(), goal)){
+                    dashboardViewModel.setEfan_onoff(goal);
+                }
+                break;
+            case DeviceAppointNameModel.AirconName:
+                goal = Boolean.FALSE.equals(dashboardViewModel.getAircon_onoff().getValue());
+                if(SendAppointAircon(jwt_t,device_id,dashboardViewModel.getAircon_startt().getValue(),dashboardViewModel.getAircon_stopt().getValue(), goal)){
+                    dashboardViewModel.setAircon_onoff(goal);
+                }
+                break;
+            case DeviceAppointNameModel.Co2CreatorName:
+                goal = Boolean.FALSE.equals(dashboardViewModel.getCo2creator_onoff().getValue());
+                if(SendAppointCo2Creator(jwt_t,device_id,dashboardViewModel.getCo2creator_startt().getValue(),dashboardViewModel.getCo2creator_stopt().getValue(), goal)){
+                    dashboardViewModel.setCo2creator_onoff(goal);
+                }
+                break;
+            case DeviceAppointNameModel.LedName:
+                goal = Boolean.FALSE.equals(dashboardViewModel.getLed_onoff().getValue());
+                if(SendAppointLED(jwt_t,device_id,dashboardViewModel.getLed_startt().getValue(),dashboardViewModel.getLed_stopt().getValue(), goal)){
+                    dashboardViewModel.setLed_onoff(goal);
+                }
+                break;
+        }
+
+    }
+
+    public void TimeUpdateDialog(String device_id,String category,int start_hour,int start_min,int stop_hour, int stop_min){
+
+
+        View updateDialogView = getLayoutInflater().inflate(R.layout.dialog_appoint_update,null);
+        TimePicker tp_start_time = updateDialogView.findViewById(R.id.tp_dialog_appoint_start_time);
+        TimePicker tp_stop_time = updateDialogView.findViewById(R.id.tp_dialog_appoint_stop_time);
+
+        tp_start_time.setHour(start_hour);
+        tp_start_time.setMinute(start_min);
+        tp_stop_time.setHour(stop_hour);
+        tp_stop_time.setMinute(stop_min);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(updateDialogView);
+        builder.setTitle("시간 수정");
+        builder.setPositiveButton("확인", (dialog, which) -> {
+            
+            String jwt_t = pm.getString(PreferenceModel.jwt_token,null);
+
+            if(jwt_t == null){
+                return;
+            }
+
+            boolean goal;
+            
+            String startTime = tp_start_time.getHour()+":"+tp_start_time.getMinute();
+            String stopTime = tp_stop_time.getHour()+":"+tp_stop_time.getMinute();
+
+            switch (category){
+                case DeviceAppointNameModel.ComPumpName:
+                    goal = Boolean.TRUE.equals(dashboardViewModel.getCompump_onoff().getValue());
+                    if(goal) {
+                        SendAppointComPump(jwt_t,device_id,startTime,stopTime,goal);
+                    }
+                    dashboardViewModel.setCompump_startt(startTime);
+                    dashboardViewModel.setCompump_stopt(stopTime);
+                    break;
+                case DeviceAppointNameModel.FFanName:
+                    goal = Boolean.TRUE.equals(dashboardViewModel.getFfan_onoff().getValue());
+                    if(goal) {
+                        SendAppointFFan(jwt_t,device_id,startTime,stopTime,goal);
+                    }
+                    dashboardViewModel.setFfan_startt(startTime);
+                    dashboardViewModel.setFfan_stopt(stopTime);
+                    break;
+                case DeviceAppointNameModel.EFanName:
+                    goal = Boolean.TRUE.equals(dashboardViewModel.getEfan_onoff().getValue());
+                    if(goal) {
+                        SendAppointEFan(jwt_t,device_id,startTime,stopTime,goal);
+                    }
+                    dashboardViewModel.setEfan_startt(startTime);
+                    dashboardViewModel.setEfan_stopt(stopTime);
+                    break;
+                case DeviceAppointNameModel.AirconName:
+                    goal = Boolean.TRUE.equals(dashboardViewModel.getAircon_onoff().getValue());
+                    if(goal) {
+                        SendAppointAircon(jwt_t,device_id,startTime,stopTime,goal);
+                    }
+                    dashboardViewModel.setAircon_startt(startTime);
+                    dashboardViewModel.setAircon_stopt(stopTime);
+                    break;
+                case DeviceAppointNameModel.Co2CreatorName:
+                    goal = Boolean.TRUE.equals(dashboardViewModel.getCo2creator_onoff().getValue());
+                    if(goal) {
+                        SendAppointCo2Creator(jwt_t,device_id,startTime,stopTime,goal);
+                    }
+                    dashboardViewModel.setCo2creator_startt(startTime);
+                    dashboardViewModel.setCo2creator_stopt(stopTime);
+                    break;
+                case DeviceAppointNameModel.LedName:
+                    goal = Boolean.TRUE.equals(dashboardViewModel.getLed_onoff().getValue());
+                    if(goal) {
+                        SendAppointLED(jwt_t,device_id,startTime,stopTime,goal);
+                    }
+                    dashboardViewModel.setLed_startt(startTime);
+                    dashboardViewModel.setLed_stopt(stopTime);
+                    break;
+            }
+            
+            
+
+        });
+        builder.setNegativeButton("취소", (dialog, which) -> {
+
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
+    }
+
+    private boolean SendAppointComPump(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+        Retrofit_SendAppointComPumpModel am = new Retrofit_SendAppointComPumpModel(deviceid,startTime,stopTime,isCheckd);
+        final boolean[] result = {true};
+
+        retrofitService.ACMD_ComPump(token,am).enqueue(new Callback<Retrofit_ReceiveCompModel>() {
+            @Override
+            public void onResponse(Call<Retrofit_ReceiveCompModel> call, Response<Retrofit_ReceiveCompModel> response) {
+               result[0] = true;
+            }
+
+            @Override
+            public void onFailure(Call<Retrofit_ReceiveCompModel> call, Throwable t) {
+                result[0] = false;
+            }
+        });
+
+        return result[0];
+    }
+
+    private boolean SendAppointFFan(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+        Retrofit_SendAppointFFanModel am = new Retrofit_SendAppointFFanModel(deviceid,startTime,stopTime,isCheckd);
+        final boolean[] result = {true};
+
+        retrofitService.ACMD_FFan(token,am).enqueue(new Callback<Retrofit_ReceiveFFanModel>() {
+            @Override
+            public void onResponse(Call<Retrofit_ReceiveFFanModel> call, Response<Retrofit_ReceiveFFanModel> response) {
+                result[0] = true;
+            }
+
+            @Override
+            public void onFailure(Call<Retrofit_ReceiveFFanModel> call, Throwable t) {
+                result[0] = false;
+            }
+        });
+
+        return result[0];
+    }
+
+    private boolean SendAppointEFan(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+        Retrofit_SendAppointEFanModel am = new Retrofit_SendAppointEFanModel(deviceid,startTime,stopTime,isCheckd);
+        final boolean[] result = {true};
+
+        retrofitService.ACMD_EFan(token,am).enqueue(new Callback<Retrofit_ReceiveEFanModel>() {
+            @Override
+            public void onResponse(Call<Retrofit_ReceiveEFanModel> call, Response<Retrofit_ReceiveEFanModel> response) {
+                result[0] = true;
+            }
+
+            @Override
+            public void onFailure(Call<Retrofit_ReceiveEFanModel> call, Throwable t) {
+                result[0] = false;
+            }
+        });
+
+        return result[0];
+    }
+
+    private boolean SendAppointAircon(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+        Retrofit_SendAppointAirconModel am = new Retrofit_SendAppointAirconModel(deviceid,startTime,stopTime,isCheckd);
+        final boolean[] result = {true};
+
+        retrofitService.ACMD_Aircon(token,am).enqueue(new Callback<Retrofit_ReceiveAirconModel>() {
+            @Override
+            public void onResponse(Call<Retrofit_ReceiveAirconModel> call, Response<Retrofit_ReceiveAirconModel> response) {
+                result[0] = true;
+            }
+
+            @Override
+            public void onFailure(Call<Retrofit_ReceiveAirconModel> call, Throwable t) {
+                result[0] = false;
+            }
+        });
+
+        return result[0];
+    }
+
+    private boolean SendAppointCo2Creator(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+        Retrofit_SendAppointCo2CreatorModel am = new Retrofit_SendAppointCo2CreatorModel(deviceid,startTime,stopTime,isCheckd);
+        final boolean[] result = {true};
+
+        retrofitService.ACMD_Co2Creator(token,am).enqueue(new Callback<Retrofit_ReceiveCo2CreatorModel>() {
+            @Override
+            public void onResponse(Call<Retrofit_ReceiveCo2CreatorModel> call, Response<Retrofit_ReceiveCo2CreatorModel> response) {
+                result[0] = true;
+            }
+
+            @Override
+            public void onFailure(Call<Retrofit_ReceiveCo2CreatorModel> call, Throwable t) {
+                result[0] = false;
+            }
+        });
+
+        return result[0];
+    }
+
+    private boolean SendAppointLED(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+        Retrofit_SendAppointLEDModel am = new Retrofit_SendAppointLEDModel(deviceid,startTime,stopTime,isCheckd);
+        final boolean[] result = {true};
+
+        retrofitService.ACMD_LED(token,am).enqueue(new Callback<Retrofit_ReceiveLEDModel>() {
+            @Override
+            public void onResponse(Call<Retrofit_ReceiveLEDModel> call, Response<Retrofit_ReceiveLEDModel> response) {
+                result[0] = true;
+            }
+
+            @Override
+            public void onFailure(Call<Retrofit_ReceiveLEDModel> call, Throwable t) {
+                result[0] = false;
+            }
+        });
+
+        return result[0];
+    }
+
+@Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+}

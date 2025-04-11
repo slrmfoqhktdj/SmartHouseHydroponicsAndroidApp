@@ -1,0 +1,200 @@
+package com.ifcompany.smart_house_01.ui.login;
+
+import android.app.Activity;
+
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.ifcompany.smart_house_01.MainActivity;
+import com.ifcompany.smart_house_01.R;
+import com.ifcompany.smart_house_01.databinding.ActivityLoginsBinding;
+import com.ifcompany.smart_house_01.db.PreferenceManager;
+import com.ifcompany.smart_house_01.db.PreferenceModel;
+import com.ifcompany.smart_house_01.retrofit.Retrofit_Factory;
+import com.ifcompany.smart_house_01.retrofit.Retrofit_Interface;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveLoginModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendLoginModel;
+import com.ifcompany.smart_house_01.ui.intro.SplashActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class LoginActivity extends AppCompatActivity {
+
+    private String tag = "LoginActivity";
+    private LoginViewModel loginViewModel;
+    private ActivityLoginsBinding binding;
+    private PreferenceManager pm ;
+    private final Retrofit_Interface retrofitService = Retrofit_Factory.create();
+    private ProgressBar loadingProgressBar;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        pm = PreferenceManager.getInstance(this);
+
+        binding = ActivityLoginsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+                .get(LoginViewModel.class);
+
+        final EditText usernameEditText = binding.username;
+        final EditText passwordEditText = binding.password;
+        final Button loginButton = binding.login;
+        loadingProgressBar = binding.loading;
+        final CheckBox autoLogin = binding.checkAutoLogin;
+
+        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
+            @Override
+            public void onChanged(@Nullable LoginFormState loginFormState) {
+                if (loginFormState == null) {
+                    return;
+                }
+                loginButton.setEnabled(loginFormState.isDataValid());
+                if (loginFormState.getUsernameError() != null) {
+                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
+                }
+                if (loginFormState.getPasswordError() != null) {
+                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
+                }
+            }
+        });
+
+        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
+            @Override
+            public void onChanged(@Nullable LoginResult loginResult) {
+                if (loginResult == null) {
+                    return;
+                }
+                loadingProgressBar.setVisibility(View.GONE);
+                if (loginResult.getError() != null) {
+                    showLoginFailed(loginResult.getError());
+                }
+                if (loginResult.getSuccess() != null) {
+                    updateUiWithUser(loginResult.getSuccess());
+                }
+                setResult(Activity.RESULT_OK);
+
+                //Complete and destroy login activity once successful
+                finish();
+            }
+        });
+
+        TextWatcher afterTextChangedListener = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // ignore
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // ignore
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
+                        passwordEditText.getText().toString());
+            }
+        };
+        usernameEditText.addTextChangedListener(afterTextChangedListener);
+        passwordEditText.addTextChangedListener(afterTextChangedListener);
+        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    loginViewModel.login(usernameEditText.getText().toString(),
+                            passwordEditText.getText().toString());
+                }
+                return false;
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String email = usernameEditText.getText().toString();
+                String pw = passwordEditText.getText().toString();
+
+                if(autoLogin.isChecked()){
+                    pm.setString(PreferenceModel.isEmail,email);
+                    pm.setString(PreferenceModel.isPw,pw);
+                }
+                loadingProgressBar.setVisibility(View.VISIBLE);
+
+                Login(email, pw);
+
+//                loginViewModel.login(usernameEditText.getText().toString(),
+//                        passwordEditText.getText().toString());
+            }
+        });
+    }
+
+    private void updateUiWithUser(LoggedInUserView model) {
+        String welcome = getString(R.string.welcome) + model.getDisplayName();
+        // TODO : initiate successful logged in experience
+        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+    }
+
+    private void showLoginFailed(@StringRes Integer errorString) {
+        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+
+    private void Login(String email, String pw){
+        Retrofit_SendLoginModel rl = new Retrofit_SendLoginModel(email,pw);
+        retrofitService.Login(rl).enqueue(new Callback<Retrofit_ReceiveLoginModel>() {
+            @Override
+            public void onResponse(Call<Retrofit_ReceiveLoginModel> call, Response<Retrofit_ReceiveLoginModel> response) {
+
+                Log.d(tag,"response.code() : "+response.code());
+                Log.d(tag,"get Name = "+ response.body().getItem().getName());
+
+                if(response.body().getItem().getName().equals("")|| response.body().getItem().getName() == null){
+                    showLoginFailed(R.string.login_failed);
+                    loadingProgressBar.setVisibility(View.GONE);
+                    return;
+                }
+
+                pm.setString(PreferenceModel.isEmail,email);
+                pm.setString(PreferenceModel.jwt_token,response.body().getItem().getName());
+//                pm.setString(PreferenceModel.jwt_token,"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE3NDMzOTIxNjgsInVzZXIiOiJpZiJ9.q2bMenaYrQsEe1-9Qzs-4eO90ECB8_ay8hxqF5dSRII");
+
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+
+            @Override
+            public void onFailure(Call<Retrofit_ReceiveLoginModel> call, Throwable t) {
+                Log.d(tag, String.valueOf(t));
+                showLoginFailed(R.string.login_failed);
+                loadingProgressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+}
