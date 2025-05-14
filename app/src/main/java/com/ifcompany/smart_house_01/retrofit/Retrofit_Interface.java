@@ -10,7 +10,10 @@ import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveEFanM
 import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveFFanModel;
 import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveLEDModel;
 import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveLoginModel;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveOSIDModel;
 import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceivePumpModel;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveRebootHardwareModel;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveRebootSoftwareModel;
 import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendAirconModel;
 import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendAppointAirconModel;
 import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendAppointCo2CreatorModel;
@@ -24,7 +27,10 @@ import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendEFanModel;
 import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendFFanModel;
 import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendLEDModel;
 import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendLoginModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendOSIDModel;
 import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendPumpModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendRebootHardwareModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendRebootSoftwareModel;
 
 import java.util.HashMap;
 
@@ -78,10 +84,12 @@ public interface Retrofit_Interface {
 
 
     //로그인 및 토큰 발급
-
-    //등록된 기기 리스트 및 간단 정보
     @POST("app/login")
     Call<Retrofit_ReceiveLoginModel> Login(@Body Retrofit_SendLoginModel post);
+    //oneSignal id 제출
+    @POST("app/rpt/osid")
+    Call<Retrofit_ReceiveOSIDModel> RPT_OSID(@Header("Authorization") String token, @Body Retrofit_SendOSIDModel post);
+    //등록된 기기 리스트 및 간단 정보
     @GET("app/simple/list")
     Call<Retrofit_DeviceSimpleListModel> GetDeviceSimpleList(@Header("Authorization") String token, @Query("user") String user);
     //원하는 기기의 상세 정보
@@ -108,7 +116,10 @@ public interface Retrofit_Interface {
     //LED onoff 명령어
     @POST("app/cmd/led")
     Call<Retrofit_ReceiveLEDModel> CMD_LED(@Header("Authorization") String token, @Body Retrofit_SendLEDModel post);
-
+    @POST("command/rbsw")
+    Call<Retrofit_ReceiveRebootSoftwareModel> CMD_Reboot_Software(@Header("Authorization") String token, @Body Retrofit_SendRebootSoftwareModel post);
+    @POST("command/rbhw")
+    Call<Retrofit_ReceiveRebootHardwareModel> CMD_Reboot_Hardware(@Header("Authorization") String token, @Body Retrofit_SendRebootHardwareModel post);
 
     //등록된 기기 예약리스트 및 정보
     @GET("app/appoint/list")

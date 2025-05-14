@@ -3,16 +3,13 @@ package com.ifcompany.smart_house_01.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ifcompany.smart_house_01.retrofit.model.Retrofit_DeviceAppointListModel;
-import com.ifcompany.smart_house_01.ui.dashboard.model.DeviceAppointModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Locale;
 
 
 public class PreferenceManager {
@@ -24,6 +21,7 @@ public class PreferenceManager {
 
     private PreferenceManager(Context context) {
         sharedPreferences = context.getSharedPreferences(PreferenceModel.PreferenceName, Context.MODE_PRIVATE);
+//        sharedPreferences = EncryptedSharedPreferences.create(context,PreferenceModel.PreferenceName, MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
         gson = new GsonBuilder().create();
     }
 

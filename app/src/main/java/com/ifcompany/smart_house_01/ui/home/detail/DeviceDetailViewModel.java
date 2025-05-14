@@ -18,7 +18,8 @@ public class DeviceDetailViewModel extends ViewModel {
     private MutableLiveData<Float> phEcSensor;
     private MutableLiveData<Boolean> led;
     private MutableLiveData<String> cctv;
-    private MutableLiveData<Integer> state;
+    private MutableLiveData<String> b_time;
+    private MutableLiveData<Integer> auto;
 
     public MutableLiveData<String> getDevice_id() {
         if(device_id == null)
@@ -202,17 +203,30 @@ public class DeviceDetailViewModel extends ViewModel {
         this.cctv.setValue(cctv);
     }
 
-    public MutableLiveData<Integer> getState() {
-        if(state == null)
-            state = new MutableLiveData<>(2);
-        return state;
+    public MutableLiveData<String> getBtime() {
+        if(b_time == null)
+            b_time = new MutableLiveData<>(null);
+        return b_time;
     }
 
-    public void setState(int state) {
-        if(this.state == null){
-            this.state = new MutableLiveData<>(state);
+    public void setBtime(String b_time) {
+        if(this.b_time == null){
+            this.b_time = new MutableLiveData<>(b_time);
         }
-        this.state.setValue(state);
+        this.b_time.setValue(b_time);
+    }
+
+    public MutableLiveData<Integer> getAuto() {
+        if(auto == null)
+            auto = new MutableLiveData<>(2);
+        return auto;
+    }
+
+    public void setAuto(int auto) {
+        if(this.auto == null){
+            this.auto = new MutableLiveData<>(auto);
+        }
+        this.auto.setValue(auto);
     }
 
 

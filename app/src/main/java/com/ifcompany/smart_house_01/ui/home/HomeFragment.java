@@ -174,10 +174,10 @@ public class HomeFragment extends Fragment {
         Log.d(tag,"item click "+ position + " "+item.getId());
 //        getDeviceInfo(pm.getString(PreferenceModel.jwt_token,null),item.getId());
 
-        if(item.getAuto()== DeviceStateModel.disconnect){
-            Toast.makeText(getActivity(),"기기와 연결이 불안정합니다.",Toast.LENGTH_LONG).show();
-            return;
-        }
+//        if(item.getAuto()== DeviceStateModel.disconnect){
+//            Toast.makeText(getActivity(),"기기와 연결이 불안정합니다.",Toast.LENGTH_LONG).show();
+//            return;
+//        }
 
         Intent deviceDetailIntent = new Intent(getActivity(), DeviceDetailActivity.class);
         deviceDetailIntent.putExtra(KeyModel.DeviceId,item.getId());

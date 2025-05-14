@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.WindowCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,8 +26,18 @@ import com.ifcompany.smart_house_01.db.PreferenceManager;
 import com.ifcompany.smart_house_01.db.PreferenceModel;
 import com.ifcompany.smart_house_01.retrofit.Retrofit_Factory;
 import com.ifcompany.smart_house_01.retrofit.Retrofit_Interface;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveOSIDModel;
+import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendOSIDModel;
+import com.onesignal.Continue;
+import com.onesignal.OneSignal;
+import com.onesignal.debug.LogLevel;
+
 import android.Manifest;
 import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,18 +54,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        setFullScreen();
+//        setFullScreen();
 
         super.onCreate(savedInstanceState);
         Log.e(tag,"OnCreate");
+
+//        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
         pm = PreferenceManager.getInstance(this);
 
         InitFragments();
 
-        FCMAdmin();
-        FCMInit();
-        FCMSubscribe("device01");
+//        FCMAdmin();
+//        FCMInit();
+//        FCMSubscribe("device01");
+
+        OneSiganlInit();
 
 
     }
@@ -128,6 +143,33 @@ public class MainActivity extends AppCompatActivity {
                 pm.setString(PreferenceModel.fcm_token, token);
                 Log.d(tag, "FCM 토큰 : "+ token);
                 Log.d(tag, "FCM 토큰 길이 : "+ token.length());
+            }
+        });
+    }
+
+    private void OneSiganlInit(){
+        OneSignal.getDebug().setLogLevel(LogLevel.VERBOSE);
+        OneSignal.initWithContext(this,"f9c08257-c09f-4c0a-9f07-9bc038f1c390");
+        OneSignal.getNotifications().requestPermission(false, Continue.none());
+//        Log.d(tag,"OneSignal external id : "+OneSignal.getUser().getExternalId());
+//        Log.d(tag,"OneSignal onsignal id : "+OneSignal.getUser().getOnesignalId());
+        Log.d(tag,"OneSignal pushsubscription id : "+OneSignal.getUser().getPushSubscription().getId());
+//        Log.d(tag,"OneSignal pushsubscription token : "+OneSignal.getUser().getPushSubscription().getToken());
+
+        //oneSignal 앱 id 보고
+        retrofitService.RPT_OSID(pm.getString(PreferenceModel.jwt_token,null),new Retrofit_SendOSIDModel(pm.getString(PreferenceModel.isEmail,null),OneSignal.getUser().getPushSubscription().getId())).enqueue(new Callback<Retrofit_ReceiveOSIDModel>() {
+            @Override
+            public void onResponse(Call<Retrofit_ReceiveOSIDModel> call, Response<Retrofit_ReceiveOSIDModel> response) {
+                try{
+                    Log.d(tag,"RPT_OSID : "+response.body().getOs_id()+","+response.body().getResult());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Retrofit_ReceiveOSIDModel> call, Throwable t) {
+                Log.d(tag, String.valueOf(t));
             }
         });
     }

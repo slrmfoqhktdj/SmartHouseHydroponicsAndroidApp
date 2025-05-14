@@ -78,6 +78,27 @@ public class DashboardFragment extends Fragment {
     private TextView devicestate;
     private final int initDevicelistPosition = 0;
 
+    private interface SendAppointComPumpResultCallback{
+        void onResult(boolean result);
+    }
+    private interface SendAppointFFanResultCallback{
+        void onResult(boolean result);
+    }
+    private interface SendAppointEFanResultCallback{
+        void onResult(boolean result);
+    }
+    private interface SendAppointAirconResultCallback{
+        void onResult(boolean result);
+    }
+    private interface SendAppointCo2CreatorResultCallback{
+        void onResult(boolean result);
+    }
+    private interface SendAppointLEDResultCallback{
+        void onResult(boolean result);
+    }
+
+
+
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -124,78 +145,85 @@ public class DashboardFragment extends Fragment {
         compump_con.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
             String[] startT = dashboardViewModel.getCompump_startt().getValue().split(":");
             String[] stopT = dashboardViewModel.getCompump_stopt().getValue().split(":");
 
-            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.ComPumpName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+            TimeUpdateDialog(dashboardViewModel.getDeviceid().getValue(),DeviceAppointNameModel.ComPumpName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
         });
 
         ffan_con.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
             String[] startT = dashboardViewModel.getFfan_startt().getValue().split(":");
             String[] stopT = dashboardViewModel.getFfan_stopt().getValue().split(":");
 
-            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.FFanName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+            TimeUpdateDialog(dashboardViewModel.getDeviceid().getValue(),DeviceAppointNameModel.FFanName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
         });
 
         efan_con.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
             String[] startT = dashboardViewModel.getEfan_startt().getValue().split(":");
             String[] stopT = dashboardViewModel.getEfan_stopt().getValue().split(":");
 
-            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.EFanName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+            TimeUpdateDialog(dashboardViewModel.getDeviceid().getValue(),DeviceAppointNameModel.EFanName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
         });
 
         aircon_con.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
             String[] startT = dashboardViewModel.getAircon_startt().getValue().split(":");
             String[] stopT = dashboardViewModel.getAircon_stopt().getValue().split(":");
 
-            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.AirconName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+            TimeUpdateDialog(dashboardViewModel.getDeviceid().getValue(),DeviceAppointNameModel.AirconName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
         });
 
         co2creator_con.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
             String[] startT = dashboardViewModel.getCo2creator_startt().getValue().split(":");
             String[] stopT = dashboardViewModel.getCo2creator_stopt().getValue().split(":");
 
-            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.Co2CreatorName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+            TimeUpdateDialog(dashboardViewModel.getDeviceid().getValue(),DeviceAppointNameModel.Co2CreatorName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
         });
 
         led_con.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
             String[] startT = dashboardViewModel.getLed_startt().getValue().split(":");
             String[] stopT = dashboardViewModel.getLed_stopt().getValue().split(":");
 
-            TimeUpdateDialog(pm.getDeviceId(deviceselected.getSelectedItem().toString()),DeviceAppointNameModel.LedName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
+            TimeUpdateDialog(dashboardViewModel.getDeviceid().getValue(),DeviceAppointNameModel.LedName,Integer.parseInt(startT[0]),Integer.parseInt(startT[1]),Integer.parseInt(stopT[0]),Integer.parseInt(stopT[1]));
         });
 
         compump_onoff.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
@@ -205,6 +233,7 @@ public class DashboardFragment extends Fragment {
         ffan_onoff.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
@@ -214,6 +243,7 @@ public class DashboardFragment extends Fragment {
         efan_onoff.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
@@ -223,6 +253,7 @@ public class DashboardFragment extends Fragment {
         aircon_onoff.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
@@ -232,6 +263,7 @@ public class DashboardFragment extends Fragment {
         co2creator_onoff.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
@@ -241,6 +273,7 @@ public class DashboardFragment extends Fragment {
         led_onoff.setOnClickListener(v -> {
 
             if(dashboardViewModel.getDeviceAuto().getValue() != 1){
+                notMassageAutoState();
                 return;
             }
 
@@ -251,31 +284,16 @@ public class DashboardFragment extends Fragment {
 
 
         if(dashboardViewModel.getDeviceidList().getValue() == null){
-            ArrayList<String> devicenicklist = new ArrayList<>(pm.getDeviceList(PreferenceModel.device_list));
+            ArrayList<String> deviceidlist = new ArrayList<>(pm.getDeviceList(PreferenceModel.device_list));
+            ArrayList<String> devicenicklist = (ArrayList<String>) deviceidlist.clone();
             devicenicklist.replaceAll(key -> pm.getString(key, key));
-            dashboardViewModel.setDeviceidList(devicenicklist);
+            dashboardViewModel.setDeviceidList(deviceidlist);
+            dashboardViewModel.setDevicenickList(devicenicklist);
         }
 
-        initSpinnerAdapter(dashboardViewModel.getDeviceidList().getValue());
+        initSpinnerAdapter();
 
-
-        if(dashboardViewModel.getItemlist().getValue().size()<=0){
-            Log.d(tag,"list size is "+dashboardViewModel.getItemlist().getValue().size());
-            getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null), dashboardViewModel.getDeviceid().getValue()==null? dashboardViewModel.getDeviceidList().getValue().get(initDevicelistPosition): dashboardViewModel.getDeviceid().getValue());
-//            getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null), "device01");
-        }
-
-
-//        dashboardViewModel.getDeviceAuto().observe(getActivity(), integer -> {
-//            Log.d(tag,"getAutoChange "+integer);
-//            if(integer == 1){
-//                appointAdapter.setItemDisable(true);
-//            }else{
-//                appointAdapter.setItemDisable(false);
-//            }
-//
-//        });
-
+        getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null), dashboardViewModel.getDeviceid().getValue()==null? dashboardViewModel.getDeviceidList().getValue().get(initDevicelistPosition): dashboardViewModel.getDeviceid().getValue());
 
         binding.fragmentAppointRefreshLayout.setOnRefreshListener(() -> {
             Log.d(tag,"refreshlayout");
@@ -286,7 +304,7 @@ public class DashboardFragment extends Fragment {
             dashboardViewModel.setDeviceidList(devicenicklist);
             
             
-            getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null),   deviceselected.getSelectedItem().toString());
+            getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null),  dashboardViewModel.getDeviceidList().getValue().get(deviceselected.getSelectedItemPosition()) );
 //            getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null),  "device01");
             binding.fragmentAppointRefreshLayout.setRefreshing(false);
         });
@@ -320,6 +338,15 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
+
+    private void notMassageAutoState(){
+        Toast.makeText(getActivity(),"현재 기기의 상태가 수동이거나 서버와 연결되지 않은 상태입니다. 다시 확인해주세요.",Toast.LENGTH_LONG).show();
+    }
+
+    private void notMassageFail(){
+        Toast.makeText(getActivity(),"명령에 실패했습니다. 기기를 다시 확인해주세요.",Toast.LENGTH_LONG).show();
+    }
+
     private void getDeviceAppointList(String token, String device){
         retrofitService.GetDeviceAppointList(token,device).enqueue(new Callback<Retrofit_DeviceAppointListModel>() {
             @Override
@@ -410,13 +437,14 @@ public class DashboardFragment extends Fragment {
         });
     }
 
-    private void initSpinnerAdapter(ArrayList<String> a){
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,a);
+    private void initSpinnerAdapter(){
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,dashboardViewModel.getDevicenickList().getValue());
         spinnerAdapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
         deviceselected.setAdapter(spinnerAdapter);
 
 
         deviceselected.setSelection(initDevicelistPosition,false);
+        dashboardViewModel.setDeviceid(dashboardViewModel.getDeviceidList().getValue().get(initDevicelistPosition));
 
         deviceselected.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -430,7 +458,6 @@ public class DashboardFragment extends Fragment {
                     dashboardViewModel.setDeviceid(deviceid);
 
                     getDeviceAppointList(pm.getString(PreferenceModel.jwt_token,null), deviceid);
-
 
                 }
 
@@ -446,7 +473,8 @@ public class DashboardFragment extends Fragment {
 
     public void onOnoffClickFunction(String category) {
 
-        String device_id = pm.getDeviceId(deviceselected.getSelectedItem().toString());
+        String device_id = dashboardViewModel.getDeviceid().getValue();
+
         String jwt_t = pm.getString(PreferenceModel.jwt_token,null);
 
         if(jwt_t == null){
@@ -458,39 +486,65 @@ public class DashboardFragment extends Fragment {
         switch (category){
             case DeviceAppointNameModel.ComPumpName:
                 goal = Boolean.FALSE.equals(dashboardViewModel.getCompump_onoff().getValue());
-                if(SendAppointComPump(jwt_t,device_id,dashboardViewModel.getCompump_startt().getValue(),dashboardViewModel.getCompump_stopt().getValue(),goal)){
-                    dashboardViewModel.setCompump_onoff(goal);
-                }
+                SendAppointComPump(jwt_t,device_id,dashboardViewModel.getCompump_startt().getValue(),dashboardViewModel.getCompump_stopt().getValue(),goal, success ->{
+                    if(success){
+                        dashboardViewModel.setCompump_onoff(goal);
+                    }else{
+                        notMassageFail();
+                    }
+                });
+
+
                 break;
             case DeviceAppointNameModel.FFanName:
                 goal = Boolean.FALSE.equals(dashboardViewModel.getFfan_onoff().getValue());
-                if(SendAppointFFan(jwt_t,device_id,dashboardViewModel.getFfan_startt().getValue(),dashboardViewModel.getFfan_stopt().getValue(), goal)){
-                    dashboardViewModel.setFfan_onoff(goal);
-                }
+                SendAppointFFan(jwt_t,device_id,dashboardViewModel.getFfan_startt().getValue(),dashboardViewModel.getFfan_stopt().getValue(), goal, success ->{
+                    if(success){
+                        dashboardViewModel.setFfan_onoff(goal);
+                    }else{
+                        notMassageFail();
+                    }
+                });
                 break;
             case DeviceAppointNameModel.EFanName:
                 goal = Boolean.FALSE.equals(dashboardViewModel.getEfan_onoff().getValue());
-                if(SendAppointEFan(jwt_t,device_id,dashboardViewModel.getEfan_startt().getValue(),dashboardViewModel.getEfan_stopt().getValue(), goal)){
-                    dashboardViewModel.setEfan_onoff(goal);
-                }
+                SendAppointEFan(jwt_t,device_id,dashboardViewModel.getEfan_startt().getValue(),dashboardViewModel.getEfan_stopt().getValue(), goal, success ->{
+                    if(success){
+                        dashboardViewModel.setEfan_onoff(goal);
+                    }else{
+                        notMassageFail();
+                    }
+                });
                 break;
             case DeviceAppointNameModel.AirconName:
                 goal = Boolean.FALSE.equals(dashboardViewModel.getAircon_onoff().getValue());
-                if(SendAppointAircon(jwt_t,device_id,dashboardViewModel.getAircon_startt().getValue(),dashboardViewModel.getAircon_stopt().getValue(), goal)){
-                    dashboardViewModel.setAircon_onoff(goal);
-                }
+                SendAppointAircon(jwt_t,device_id,dashboardViewModel.getAircon_startt().getValue(),dashboardViewModel.getAircon_stopt().getValue(), goal, success ->{
+                    if(success){
+                        dashboardViewModel.setAircon_onoff(goal);
+                    }else{
+                        notMassageFail();
+                    }
+                });
                 break;
             case DeviceAppointNameModel.Co2CreatorName:
                 goal = Boolean.FALSE.equals(dashboardViewModel.getCo2creator_onoff().getValue());
-                if(SendAppointCo2Creator(jwt_t,device_id,dashboardViewModel.getCo2creator_startt().getValue(),dashboardViewModel.getCo2creator_stopt().getValue(), goal)){
-                    dashboardViewModel.setCo2creator_onoff(goal);
-                }
+                SendAppointCo2Creator(jwt_t,device_id,dashboardViewModel.getCo2creator_startt().getValue(),dashboardViewModel.getCo2creator_stopt().getValue(), goal, success ->{
+                    if(success){
+                        dashboardViewModel.setCo2creator_onoff(goal);
+                    }else{
+                        notMassageFail();
+                    }
+                });
                 break;
             case DeviceAppointNameModel.LedName:
                 goal = Boolean.FALSE.equals(dashboardViewModel.getLed_onoff().getValue());
-                if(SendAppointLED(jwt_t,device_id,dashboardViewModel.getLed_startt().getValue(),dashboardViewModel.getLed_stopt().getValue(), goal)){
-                    dashboardViewModel.setLed_onoff(goal);
-                }
+                SendAppointLED(jwt_t,device_id,dashboardViewModel.getLed_startt().getValue(),dashboardViewModel.getLed_stopt().getValue(), goal, success ->{
+                    if(success){
+                        dashboardViewModel.setLed_onoff(goal);
+                    }else{
+                        notMassageFail();
+                    }
+                });
                 break;
         }
 
@@ -518,60 +572,76 @@ public class DashboardFragment extends Fragment {
             if(jwt_t == null){
                 return;
             }
-
-            boolean goal;
             
             String startTime = tp_start_time.getHour()+":"+tp_start_time.getMinute();
             String stopTime = tp_stop_time.getHour()+":"+tp_stop_time.getMinute();
 
             switch (category){
                 case DeviceAppointNameModel.ComPumpName:
-                    goal = Boolean.TRUE.equals(dashboardViewModel.getCompump_onoff().getValue());
-                    if(goal) {
-                        SendAppointComPump(jwt_t,device_id,startTime,stopTime,goal);
-                    }
-                    dashboardViewModel.setCompump_startt(startTime);
-                    dashboardViewModel.setCompump_stopt(stopTime);
+                    SendAppointComPump(jwt_t,device_id,startTime,stopTime,dashboardViewModel.getCompump_onoff().getValue(), success ->{
+                        if(success){
+                            dashboardViewModel.setCompump_startt(startTime);
+                            dashboardViewModel.setCompump_stopt(stopTime);
+                        }else{
+                            notMassageFail();
+                        }
+                    });
                     break;
                 case DeviceAppointNameModel.FFanName:
-                    goal = Boolean.TRUE.equals(dashboardViewModel.getFfan_onoff().getValue());
-                    if(goal) {
-                        SendAppointFFan(jwt_t,device_id,startTime,stopTime,goal);
-                    }
-                    dashboardViewModel.setFfan_startt(startTime);
-                    dashboardViewModel.setFfan_stopt(stopTime);
+                    SendAppointFFan(jwt_t,device_id,startTime,stopTime,dashboardViewModel.getFfan_onoff().getValue(), success ->{
+                        if(success){
+                            dashboardViewModel.setFfan_startt(startTime);
+                            dashboardViewModel.setFfan_stopt(stopTime);
+                        }else{
+                            notMassageFail();
+                        }
+                    });
                     break;
                 case DeviceAppointNameModel.EFanName:
-                    goal = Boolean.TRUE.equals(dashboardViewModel.getEfan_onoff().getValue());
-                    if(goal) {
-                        SendAppointEFan(jwt_t,device_id,startTime,stopTime,goal);
-                    }
-                    dashboardViewModel.setEfan_startt(startTime);
-                    dashboardViewModel.setEfan_stopt(stopTime);
+
+                    SendAppointEFan(jwt_t,device_id,startTime,stopTime,dashboardViewModel.getEfan_onoff().getValue(), success ->{
+                        if(success){
+                            dashboardViewModel.setEfan_startt(startTime);
+                            dashboardViewModel.setEfan_stopt(stopTime);
+                        }else{
+                            notMassageFail();
+                        }
+                    });
                     break;
                 case DeviceAppointNameModel.AirconName:
-                    goal = Boolean.TRUE.equals(dashboardViewModel.getAircon_onoff().getValue());
-                    if(goal) {
-                        SendAppointAircon(jwt_t,device_id,startTime,stopTime,goal);
-                    }
-                    dashboardViewModel.setAircon_startt(startTime);
-                    dashboardViewModel.setAircon_stopt(stopTime);
+
+                    SendAppointAircon(jwt_t,device_id,startTime,stopTime,dashboardViewModel.getAircon_onoff().getValue(), success ->{
+                        if(success){
+                            dashboardViewModel.setAircon_startt(startTime);
+                            dashboardViewModel.setAircon_stopt(stopTime);
+                        }else{
+                            notMassageFail();
+                        }
+                    });
                     break;
                 case DeviceAppointNameModel.Co2CreatorName:
-                    goal = Boolean.TRUE.equals(dashboardViewModel.getCo2creator_onoff().getValue());
-                    if(goal) {
-                        SendAppointCo2Creator(jwt_t,device_id,startTime,stopTime,goal);
-                    }
-                    dashboardViewModel.setCo2creator_startt(startTime);
-                    dashboardViewModel.setCo2creator_stopt(stopTime);
+
+                    SendAppointCo2Creator(jwt_t,device_id,startTime,stopTime,dashboardViewModel.getCo2creator_onoff().getValue(), success ->{
+                        if(success){
+
+                            dashboardViewModel.setCo2creator_startt(startTime);
+                            dashboardViewModel.setCo2creator_stopt(stopTime);
+                        }else{
+                            notMassageFail();
+                        }
+                    });
                     break;
                 case DeviceAppointNameModel.LedName:
-                    goal = Boolean.TRUE.equals(dashboardViewModel.getLed_onoff().getValue());
-                    if(goal) {
-                        SendAppointLED(jwt_t,device_id,startTime,stopTime,goal);
-                    }
-                    dashboardViewModel.setLed_startt(startTime);
-                    dashboardViewModel.setLed_stopt(stopTime);
+
+                    SendAppointLED(jwt_t,device_id,startTime,stopTime,dashboardViewModel.getLed_onoff().getValue(), success ->{
+                        if(success){
+
+                            dashboardViewModel.setLed_startt(startTime);
+                            dashboardViewModel.setLed_stopt(stopTime);
+                        }else{
+                            notMassageFail();
+                        }
+                    });
                     break;
             }
             
@@ -588,118 +658,105 @@ public class DashboardFragment extends Fragment {
 
     }
 
-    private boolean SendAppointComPump(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+    private void SendAppointComPump(String token, String deviceid, String startTime, String stopTime,boolean isCheckd, SendAppointComPumpResultCallback callback){
         Retrofit_SendAppointComPumpModel am = new Retrofit_SendAppointComPumpModel(deviceid,startTime,stopTime,isCheckd);
-        final boolean[] result = {true};
 
         retrofitService.ACMD_ComPump(token,am).enqueue(new Callback<Retrofit_ReceiveCompModel>() {
             @Override
             public void onResponse(Call<Retrofit_ReceiveCompModel> call, Response<Retrofit_ReceiveCompModel> response) {
-               result[0] = true;
+                callback.onResult(response.body().getResult());
             }
 
             @Override
             public void onFailure(Call<Retrofit_ReceiveCompModel> call, Throwable t) {
-                result[0] = false;
+                callback.onResult(false);
             }
         });
 
-        return result[0];
     }
 
-    private boolean SendAppointFFan(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+    private void SendAppointFFan(String token, String deviceid, String startTime, String stopTime,boolean isCheckd, SendAppointFFanResultCallback callback){
         Retrofit_SendAppointFFanModel am = new Retrofit_SendAppointFFanModel(deviceid,startTime,stopTime,isCheckd);
-        final boolean[] result = {true};
 
         retrofitService.ACMD_FFan(token,am).enqueue(new Callback<Retrofit_ReceiveFFanModel>() {
             @Override
             public void onResponse(Call<Retrofit_ReceiveFFanModel> call, Response<Retrofit_ReceiveFFanModel> response) {
-                result[0] = true;
+                callback.onResult(response.body().getResult());
             }
 
             @Override
             public void onFailure(Call<Retrofit_ReceiveFFanModel> call, Throwable t) {
-                result[0] = false;
+                callback.onResult(false);
             }
         });
 
-        return result[0];
     }
 
-    private boolean SendAppointEFan(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+    private void SendAppointEFan(String token, String deviceid, String startTime, String stopTime,boolean isCheckd, SendAppointEFanResultCallback callback){
         Retrofit_SendAppointEFanModel am = new Retrofit_SendAppointEFanModel(deviceid,startTime,stopTime,isCheckd);
-        final boolean[] result = {true};
 
         retrofitService.ACMD_EFan(token,am).enqueue(new Callback<Retrofit_ReceiveEFanModel>() {
             @Override
             public void onResponse(Call<Retrofit_ReceiveEFanModel> call, Response<Retrofit_ReceiveEFanModel> response) {
-                result[0] = true;
+                callback.onResult(response.body().getResult());
             }
 
             @Override
             public void onFailure(Call<Retrofit_ReceiveEFanModel> call, Throwable t) {
-                result[0] = false;
+                callback.onResult(false);
             }
         });
-
-        return result[0];
     }
 
-    private boolean SendAppointAircon(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+    private void SendAppointAircon(String token, String deviceid, String startTime, String stopTime,boolean isCheckd, SendAppointAirconResultCallback callback){
         Retrofit_SendAppointAirconModel am = new Retrofit_SendAppointAirconModel(deviceid,startTime,stopTime,isCheckd);
-        final boolean[] result = {true};
 
         retrofitService.ACMD_Aircon(token,am).enqueue(new Callback<Retrofit_ReceiveAirconModel>() {
             @Override
             public void onResponse(Call<Retrofit_ReceiveAirconModel> call, Response<Retrofit_ReceiveAirconModel> response) {
-                result[0] = true;
+                callback.onResult(response.body().getResult());
             }
 
             @Override
             public void onFailure(Call<Retrofit_ReceiveAirconModel> call, Throwable t) {
-                result[0] = false;
+                callback.onResult(false);
             }
         });
 
-        return result[0];
     }
 
-    private boolean SendAppointCo2Creator(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+    private void SendAppointCo2Creator(String token, String deviceid, String startTime, String stopTime,boolean isCheckd, SendAppointCo2CreatorResultCallback callback){
         Retrofit_SendAppointCo2CreatorModel am = new Retrofit_SendAppointCo2CreatorModel(deviceid,startTime,stopTime,isCheckd);
-        final boolean[] result = {true};
 
         retrofitService.ACMD_Co2Creator(token,am).enqueue(new Callback<Retrofit_ReceiveCo2CreatorModel>() {
             @Override
             public void onResponse(Call<Retrofit_ReceiveCo2CreatorModel> call, Response<Retrofit_ReceiveCo2CreatorModel> response) {
-                result[0] = true;
+                callback.onResult(response.body().getResult());
             }
 
             @Override
             public void onFailure(Call<Retrofit_ReceiveCo2CreatorModel> call, Throwable t) {
-                result[0] = false;
+                callback.onResult(false);
             }
         });
 
-        return result[0];
     }
 
-    private boolean SendAppointLED(String token, String deviceid, String startTime, String stopTime,boolean isCheckd){
+    private void SendAppointLED(String token, String deviceid, String startTime, String stopTime,boolean isCheckd, SendAppointLEDResultCallback callback){
         Retrofit_SendAppointLEDModel am = new Retrofit_SendAppointLEDModel(deviceid,startTime,stopTime,isCheckd);
-        final boolean[] result = {true};
 
         retrofitService.ACMD_LED(token,am).enqueue(new Callback<Retrofit_ReceiveLEDModel>() {
             @Override
             public void onResponse(Call<Retrofit_ReceiveLEDModel> call, Response<Retrofit_ReceiveLEDModel> response) {
-                result[0] = true;
+                callback.onResult(response.body().getResult());
+
             }
 
             @Override
             public void onFailure(Call<Retrofit_ReceiveLEDModel> call, Throwable t) {
-                result[0] = false;
+                callback.onResult(false);
             }
         });
-
-        return result[0];
     }
 
 @Override

@@ -34,7 +34,6 @@ import com.ifcompany.smart_house_01.retrofit.Retrofit_Factory;
 import com.ifcompany.smart_house_01.retrofit.Retrofit_Interface;
 import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveLoginModel;
 import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendLoginModel;
-import com.ifcompany.smart_house_01.ui.intro.SplashActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -166,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void Login(String email, String pw){
         Retrofit_SendLoginModel rl = new Retrofit_SendLoginModel(email,pw);
+        Log.d(tag,"login handle");
         retrofitService.Login(rl).enqueue(new Callback<Retrofit_ReceiveLoginModel>() {
             @Override
             public void onResponse(Call<Retrofit_ReceiveLoginModel> call, Response<Retrofit_ReceiveLoginModel> response) {

@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        Log.d(tag, "onCreate");
 
         pm = PreferenceManager.getInstance(this);
 
@@ -54,6 +54,7 @@ public class SplashActivity extends AppCompatActivity {
             nextActivity();
 
         },video_time);
+
 
     }
 
@@ -87,6 +88,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void Login(String email, String pw){
         Retrofit_SendLoginModel rl = new Retrofit_SendLoginModel(email,pw);
+        Log.d(tag,"login handle");
         retrofitService.Login(rl).enqueue(new Callback<Retrofit_ReceiveLoginModel>() {
             @Override
             public void onResponse(Call<Retrofit_ReceiveLoginModel> call, Response<Retrofit_ReceiveLoginModel> response) {

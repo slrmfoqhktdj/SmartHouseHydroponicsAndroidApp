@@ -17,6 +17,7 @@ public class Retrofit_DeviceDetailModel {
     private boolean led;    //led
     private String cctv;    //cctv url
     private int auto;   //자동수동연결여부
+    private String b_time; // 최근 시작 시간
 
     public String getId() {
         return id;
@@ -121,11 +122,21 @@ public class Retrofit_DeviceDetailModel {
     public void setCctv(String cctv) {
         this.cctv = cctv;
     }
+
     public int getAuto() {
         return auto;
     }
+
     public void setAuto(int auto) {
         this.auto = auto;
+    }
+
+    public String getB_time() {
+        return b_time;
+    }
+
+    public void setB_time(String b_time) {
+        this.b_time = b_time;
     }
 
 

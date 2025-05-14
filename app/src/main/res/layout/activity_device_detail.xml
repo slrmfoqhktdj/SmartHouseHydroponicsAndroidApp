@@ -1,851 +1,939 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/device_detail_refresh_layout"
-    tools:context=".ui.home.detail.DeviceDetailActivity">
+    tools:context=".ui.home.detail.DeviceDetailActivity"
+    >
+    <data>
+        <variable name = "viewmodel" type = "com.ifcompany.smart_house_01.ui.home.detail.DeviceDetailViewModel"/>
+    </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/device_detail_refresh_layout"
+        >
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
 
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.01"
-            app:layout_constraintHorizontal_bias="0.5"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".9"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+
                 android:textAlignment="center"
                 android:gravity="center"
-                android:text="기기 "
+                android:background="@drawable/round_back"
 
 
-                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintVertical_bias="0.01"
+                app:layout_constraintHorizontal_bias="0.5"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="기기 "
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/device_detail_deviceid"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="@{viewmodel.nick}"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintVertical_bias="0.1"
+                    app:layout_constraintHorizontal_bias="0.75"
+
+                    app:layout_constraintHeight_percent=".5"
+                    app:layout_constraintWidth_percent=".55"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/device_detail_device_state"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="@{viewmodel.auto == 0?`수동`: viewmodel.auto == 1? `자동`: `연결안됨`}"
+                    android:textStyle="bold"
+                    android:textColor="@{viewmodel.auto == 0?@color/device_state_pass: viewmodel.auto == 1? @color/device_state_auto: @color/device_state_disconnect}"
+
+                    app:layout_constraintVertical_bias="0.9"
+                    app:layout_constraintHorizontal_bias="0.75"
+
+                    app:layout_constraintHeight_percent=".4"
+                    app:layout_constraintWidth_percent=".55"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.15"
                 app:layout_constraintHorizontal_bias="0.1"
 
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="콤프"
 
 
-            <TextView
-                android:id="@+id/device_detail_deviceid"
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/device_detail_comp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+
+                    android:checked="false"
+                    android:text="@{viewmodel.comp?`ON`: `OFF`}"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+
                 android:textAlignment="center"
                 android:gravity="center"
+                android:background="@drawable/round_back"
 
 
-                app:layout_constraintVertical_bias="0.1"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".5"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/device_detail_device_state"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-
-
-                app:layout_constraintVertical_bias="0.9"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".4"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.15"
-            app:layout_constraintHorizontal_bias="0.1"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="콤프"
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/device_detail_comp"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-
-                android:checked="false"
-                android:text= "OFF"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.15"
-            app:layout_constraintHorizontal_bias="0.9"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="펌프"
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/device_detail_pump"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-
-                android:checked="false"
-                android:text= "OFF"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.285"
-            app:layout_constraintHorizontal_bias="0.1"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="온도 "
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/device_detail_temp"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.285"
-            app:layout_constraintHorizontal_bias="0.9"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="습도 "
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/device_detail_humi"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.42"
-            app:layout_constraintHorizontal_bias="0.1"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="유동팬"
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/device_detail_f_fan"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-
-                android:checked="false"
-                android:text= "OFF"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.42"
-            app:layout_constraintHorizontal_bias="0.9"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="배기팬 "
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/device_detail_e_fan"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-
-                android:checked="false"
-                android:text= "OFF"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.555"
-            app:layout_constraintHorizontal_bias="0.1"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="냉난방기"
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".35"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/device_detail_aircon"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-
-                android:checked="false"
-                android:text= "OFF"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.555"
-            app:layout_constraintHorizontal_bias="0.9"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="co2발생기"
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".5"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/device_detail_co2creator"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-
-                android:checked="false"
-                android:text= "OFF"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.69"
-            app:layout_constraintHorizontal_bias="0.1"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="co2센서"
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/device_detail_co2sensor"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.69"
-            app:layout_constraintHorizontal_bias="0.9"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="ph ec"
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/device_detail_phecsensor"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias="0.825"
-            app:layout_constraintHorizontal_bias="0.1"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".43"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="LED"
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/device_detail_led"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-
-                android:checked="false"
-                android:text= "OFF"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.7"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/round_back"
-
-
-            app:layout_constraintVertical_bias=".96"
-            app:layout_constraintHorizontal_bias="0.5"
-
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintWidth_percent=".9"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:text="CCTV"
-
-
-                app:layout_constraintVertical_bias="0.5"
-                app:layout_constraintHorizontal_bias="0.1"
-
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/device_detail_cctv"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textColor="@color/purple_500"
-                android:autoLink="web"
-                android:textColorLink="@color/purple_500"
-                android:textStyle="bold"
-
-                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintVertical_bias="0.15"
                 app:layout_constraintHorizontal_bias="0.9"
 
-                app:layout_constraintHeight_percent=".9"
-                app:layout_constraintWidth_percent=".6"
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="펌프"
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/device_detail_pump"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+
+                    android:checked="false"
+                    android:text="@{viewmodel.pump?`ON`: `OFF`}"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.285"
+                app:layout_constraintHorizontal_bias="0.1"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="온도 "
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/device_detail_temp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@{viewmodel.temp.toString()}"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.285"
+                app:layout_constraintHorizontal_bias="0.9"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="습도 "
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/device_detail_humi"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@{viewmodel.humi.toString()}"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.42"
+                app:layout_constraintHorizontal_bias="0.1"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="유동팬"
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/device_detail_f_fan"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+
+                    android:checked="false"
+                    android:text="@{viewmodel.ffan?`ON`: `OFF`}"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.42"
+                app:layout_constraintHorizontal_bias="0.9"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="배기팬 "
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/device_detail_e_fan"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+
+                    android:checked="false"
+                    android:text="@{viewmodel.efan?`ON`: `OFF`}"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.555"
+                app:layout_constraintHorizontal_bias="0.1"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="냉난방기"
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".35"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/device_detail_aircon"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+
+                    android:checked="false"
+                    android:text="@{viewmodel.aircon?`ON`: `OFF`}"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.555"
+                app:layout_constraintHorizontal_bias="0.9"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="co2발생기"
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".42"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/device_detail_co2creator"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+
+                    android:checked="false"
+                    android:text="@{viewmodel.co2Creator?`ON`: `OFF`}"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.69"
+                app:layout_constraintHorizontal_bias="0.1"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="co2센서"
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/device_detail_co2sensor"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@{viewmodel.co2Sensor.toString()}"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.69"
+                app:layout_constraintHorizontal_bias="0.9"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="ph ec"
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/device_detail_phecsensor"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@{viewmodel.phEcSensor.toString()}"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.825"
+                app:layout_constraintHorizontal_bias="0.1"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="LED"
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/device_detail_led"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+
+                    android:checked="false"
+                    android:text="@{viewmodel.led?`ON`: `OFF`}"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.7"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias="0.825"
+                app:layout_constraintHorizontal_bias="0.9"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".43"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="시작시간"
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/device_detail_btime"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="@{viewmodel.btime.toString()}"
+
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.9"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/round_back"
+
+
+                app:layout_constraintVertical_bias=".96"
+                app:layout_constraintHorizontal_bias="0.5"
+
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintWidth_percent=".9"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:text="CCTV"
+
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.1"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/device_detail_cctv"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/purple_500"
+                    android:text="@{viewmodel.cctv.toString()}"
+                    android:autoLink="web"
+                    android:textColorLink="@color/purple_500"
+                    android:textStyle="bold"
+
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.9"
+
+                    app:layout_constraintHeight_percent=".9"
+                    app:layout_constraintWidth_percent=".6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
 
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
+
+

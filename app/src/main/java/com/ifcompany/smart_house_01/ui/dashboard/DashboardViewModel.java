@@ -12,8 +12,8 @@ public class DashboardViewModel extends ViewModel {
     private MutableLiveData<String> deviceid;
     private MutableLiveData<Integer> auto;
     private MutableLiveData<ArrayList<String>> deviceid_list;
-    private MutableLiveData<ArrayList<DeviceAppointModel>> itemlist;
-    
+//    private MutableLiveData<ArrayList<DeviceAppointModel>> itemlist;
+    private MutableLiveData<ArrayList<String>> devicenick_list;
     
     private MutableLiveData<String> compump_startt;
     private MutableLiveData<String> compump_stopt;
@@ -78,18 +78,31 @@ public class DashboardViewModel extends ViewModel {
         this.deviceid_list.setValue(deviceid);
     }
 
-    public MutableLiveData<ArrayList<DeviceAppointModel>> getItemlist()
+    public MutableLiveData<ArrayList<String>> getDevicenickList()
     {
-        if(itemlist == null)
-            itemlist = new MutableLiveData<>(new ArrayList<>());
-        return itemlist;
+        if(devicenick_list == null)
+            devicenick_list = new MutableLiveData<>(null);
+        return devicenick_list;
     }
-    public void setItemlist(ArrayList<DeviceAppointModel> itemlist) {
-        if(this.itemlist == null){
-            this.itemlist = new MutableLiveData<>(itemlist);
+    public void setDevicenickList(ArrayList<String> devicenick) {
+        if(this.devicenick_list == null){
+            this.devicenick_list = new MutableLiveData<>(devicenick);
         }
-        this.itemlist.setValue(itemlist);
+        this.devicenick_list.setValue(devicenick);
     }
+
+//    public MutableLiveData<ArrayList<DeviceAppointModel>> getItemlist()
+//    {
+//        if(itemlist == null)
+//            itemlist = new MutableLiveData<>(new ArrayList<>());
+//        return itemlist;
+//    }
+//    public void setItemlist(ArrayList<DeviceAppointModel> itemlist) {
+//        if(this.itemlist == null){
+//            this.itemlist = new MutableLiveData<>(itemlist);
+//        }
+//        this.itemlist.setValue(itemlist);
+//    }
 
 
 
