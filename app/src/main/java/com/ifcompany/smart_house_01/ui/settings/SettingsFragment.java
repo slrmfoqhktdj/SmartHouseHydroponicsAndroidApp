@@ -33,6 +33,7 @@ import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendRebootHardw
 import com.ifcompany.smart_house_01.retrofit.model.send.Retrofit_SendRebootSoftwareModel;
 import com.ifcompany.smart_house_01.ui.dashboard.model.DeviceAppointNameModel;
 import com.ifcompany.smart_house_01.ui.login.LoginActivity;
+import com.onesignal.OneSignal;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -72,6 +73,9 @@ public class SettingsFragment extends Fragment {
             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+
+                    OneSignal.logout();
+
                     pm.setString(PreferenceModel.isEmail,null);
                     pm.setString(PreferenceModel.isPw,null);
                     Intent intent = new Intent(getActivity(), LoginActivity.class);

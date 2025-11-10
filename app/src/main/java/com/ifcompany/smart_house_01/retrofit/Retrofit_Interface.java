@@ -4,6 +4,7 @@ import com.ifcompany.smart_house_01.retrofit.model.Retrofit_DeviceAppointListMod
 import com.ifcompany.smart_house_01.retrofit.model.Retrofit_DeviceDetailModel;
 import com.ifcompany.smart_house_01.retrofit.model.Retrofit_DeviceSimpleListModel;
 import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveAirconModel;
+import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveAlertListModel;
 import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveCo2CreatorModel;
 import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveCompModel;
 import com.ifcompany.smart_house_01.retrofit.model.receive.Retrofit_ReceiveEFanModel;
@@ -89,6 +90,8 @@ public interface Retrofit_Interface {
     //oneSignal id 제출
     @POST("app/rpt/osid")
     Call<Retrofit_ReceiveOSIDModel> RPT_OSID(@Header("Authorization") String token, @Body Retrofit_SendOSIDModel post);
+    @GET("app/alarmlist")
+    Call<Retrofit_ReceiveAlertListModel> GetAlertList(@Header("Authorization") String token, @Query("user") String user);
     //등록된 기기 리스트 및 간단 정보
     @GET("app/simple/list")
     Call<Retrofit_DeviceSimpleListModel> GetDeviceSimpleList(@Header("Authorization") String token, @Query("user") String user);
