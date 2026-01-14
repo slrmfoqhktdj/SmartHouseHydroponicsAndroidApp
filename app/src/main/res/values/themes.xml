@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Smart_house_01" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Smart_house_hydroponics" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -17,18 +17,18 @@
 
     </style>
 
-    <style name="Theme.Smart_house_01.NoActionBar" parent="Theme.Smart_house_01">
+    <style name="Theme.Smart_house_hydroponics.NoActionBar" parent="Theme.Smart_house_hydroponics">
 <!--        <item name="android:windowFullscreen">true</item>>-->
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="Theme.Smart_house_01.NoActionBar.NoActionBar">
+    <style name="Theme.Smart_house_hydroponics.NoActionBar.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="splashSkip" parent="Theme.Smart_house_01.NoActionBar">
+    <style name="splashSkip" parent="Theme.Smart_house_hydroponics.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

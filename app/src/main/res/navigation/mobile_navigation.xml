@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.ifcompany.smart_house_01.ui.home.HomeFragment"
+        android:name="com.ifcompany.smart_house_hydroponics.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.ifcompany.smart_house_01.ui.dashboard.DashboardFragment"
+        android:name="com.ifcompany.smart_house_hydroponics.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.ifcompany.smart_house_01.ui.settings.SettingsFragment"
+        android:name="com.ifcompany.smart_house_hydroponics.ui.settings.SettingsFragment"
         android:label="@string/title_Settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

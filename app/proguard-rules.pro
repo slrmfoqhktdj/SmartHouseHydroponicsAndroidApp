@@ -19,3 +19,10 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# OneSignal
+-keep class com.onesignal.** { *; }
+-dontwarn com.onesignal.**
+
+# 커스텀 핸들러 유지 (사용하는 경우)
+-keep class com.ifcompany.smart_house_hydroponics.alarm.** { *; }

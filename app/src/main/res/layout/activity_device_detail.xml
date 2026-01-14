@@ -6,7 +6,7 @@
     tools:context=".ui.home.detail.DeviceDetailActivity"
     >
     <data>
-        <variable name = "viewmodel" type = "com.ifcompany.smart_house_01.ui.home.detail.DeviceDetailViewModel"/>
+        <variable name = "viewmodel" type = "com.ifcompany.smart_house_hydroponics.ui.home.detail.DeviceDetailViewModel"/>
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

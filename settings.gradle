@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "smart_house_01"
+rootProject.name = "smart_house_hydroponics"
 include ':app'

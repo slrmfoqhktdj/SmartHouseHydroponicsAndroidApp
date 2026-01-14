@@ -6,7 +6,7 @@
     tools:context=".ui.dashboard.DashboardFragment"
     >
     <data>
-        <variable name = "viewmodel" type = "com.ifcompany.smart_house_01.ui.dashboard.DashboardViewModel"/>
+        <variable name = "viewmodel" type = "com.ifcompany.smart_house_hydroponics.ui.dashboard.DashboardViewModel"/>
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

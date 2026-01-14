@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "847576684737",
-    "project_id": "smart-house01",
-    "storage_bucket": "smart-house01.firebasestorage.app"
+    "project_number": "501340333432",
+    "project_id": "smart-house-hydroponics",
+    "storage_bucket": "smart-house-hydroponics.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:847576684737:android:2b3e67078e4a62bd971c40",
+        "mobilesdk_app_id": "1:501340333432:android:8a94b41c15ab6ba7b1548d",
         "android_client_info": {
-          "package_name": "com.ifcompany.smart_house_01"
+          "package_name": "com.ifcompany.smart_house_hydroponics"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDxdulaMeFhXfHxG7Kv2M7DRTQFJgF0WHs"
+          "current_key": "AIzaSyBoabr8mfZ1xcaOyKIXgmAuTepIOmvy7-c"
         }
       ],
       "services": {

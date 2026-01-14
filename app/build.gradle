@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.ifcompany.smart_house_01'
+    namespace 'com.ifcompany.smart_house_hydroponics'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.ifcompany.smart_house_01"
+        applicationId "com.ifcompany.smart_house_hydroponics"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -53,11 +53,11 @@ dependencies {
     implementation "org.java-websocket:Java-WebSocket:1.6.0"
 
     // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:3.0.0'
+    implementation 'com.squareup.retrofit2:converter-gson:3.0.0'
 
     //fcm
-    implementation platform('com.google.firebase:firebase-bom:33.10.0')
+    implementation platform('com.google.firebase:firebase-bom:34.6.0')
     implementation 'com.google.firebase:firebase-analytics'
 //    implementation 'com.google.firebase:firebase-messaging'
 
@@ -69,6 +69,19 @@ dependencies {
 
     //oneSignal
     implementation 'com.onesignal:OneSignal:[5.1.6, 5.1.99]'
+    
+    //datastore - sharedpreferences 대체
+    implementation "androidx.datastore:datastore-preferences:1.2.0"
+    implementation "androidx.datastore:datastore-preferences-rxjava3:1.2.0"
+
+    //datastore 암호화
+    implementation "androidx.security:security-crypto:1.1.0"
+    implementation "com.google.crypto.tink:tink-android:1.10.0"
+
+    // RxJava3 (Java에서 DataStore 사용하기 위해 필요)
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+    
 
 
 
